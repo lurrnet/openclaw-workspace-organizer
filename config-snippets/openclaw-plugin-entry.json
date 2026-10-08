@@ -7,8 +7,8 @@
           "allowConversationAccess": true
         },
         "config": {
-          "agentId": "main",
-          "workspaceDir": "/path/to/your/.openclaw/workspace",
+          "agentId": "<agent-id>",
+          "workspaceDir": "/path/to/openclaw/workspace",
           "tokenEnv": "DISCORD_BOT_TOKEN",
           "autoRegister": true,
           "updateNames": true,

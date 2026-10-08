@@ -9,6 +9,16 @@ This repository provides a Discord-aware workspace organizer for OpenClaw multi-
 - Example OpenClaw configuration and `AGENTS.md` routing policy.
 - Lazy, first-use registration: you do **not** need to manually maintain channel IDs in YAML.
 
+## Compatibility
+
+Runtime-tested with **OpenClaw 2026.8.35**.
+
+The plugin manifest declares compatibility with OpenClaw `>=2026.8.0`, but CLI commands, plugin hooks, and runtime contracts can differ between releases. If you use another version, verify the plugin with:
+
+```bash
+openclaw plugins inspect discord-workspace-router --runtime --json
+```
+
 ## How it works
 
 ```text
@@ -61,13 +71,28 @@ Discord threads inherit the parent channel directory rather than creating a new 
 - Moving a channel to another Discord category does not silently move existing files.
 - Workspace paths are validated to prevent traversal outside the configured workspace.
 - Bot tokens are read from the Gateway environment and are not written to the mapping file or channel README.
-- The plugin can be restricted to one agent, such as `main`.
+- The plugin can be restricted to one configured agent.
+
+### Generated mapping privacy
+
+`_system/discord-channel-map.yaml` contains real Discord guild, category, and channel IDs and names from the server where the plugin runs. Treat that file as local operational metadata.
+
+This repository ignores that generated path by default. If your OpenClaw workspace is tracked by a separate Git repository, add the same ignore rule there:
+
+```gitignore
+_system/discord-channel-map.yaml
+```
+
+Never commit Discord bot tokens, `.env` files, or copied runtime configuration containing credentials.
+
+See [SECURITY.md](SECURITY.md) for security guidance and vulnerability reporting.
 
 ## Repository layout
 
 ```text
 .
 ├── INSTALL.md
+├── SECURITY.md
 ├── config-snippets/
 │   ├── AGENTS-routing.md
 │   ├── discord-channel-map.yaml
@@ -100,7 +125,7 @@ openclaw plugins install --link ./workspace-router-plugin --force
 openclaw plugins enable discord-workspace-router
 ```
 
-Merge `config-snippets/openclaw-plugin-entry.json` into your existing OpenClaw config, then make sure the Discord bot token environment variable is available to the **Gateway process**.
+Merge `config-snippets/openclaw-plugin-entry.json` into your existing OpenClaw config, replace the placeholders, and make sure the Discord bot token environment variable is available to the **Gateway process**.
 
 ```bash
 DISCORD_BOT_TOKEN=...
@@ -128,14 +153,14 @@ The generated mapping keeps stable Discord IDs while preserving the category/cha
 version: 1
 
 guilds:
-  "123456789012345678":
-    name: "My Discord Server"
+  "<guild-id>":
+    name: "Example Server"
     categories:
-      "111111111111111111":
+      "<category-id>":
         name: "Projects"
         path: "Projects"
         channels:
-          "222222222222222222":
+          "<channel-id>":
             name: "example-project"
             path: "Projects/example-project"
             enabled: true
