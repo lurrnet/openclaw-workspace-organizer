@@ -1,0 +1,31 @@
+{
+  "id": "discord-workspace-router",
+  "name": "Discord Workspace Router",
+  "description": "Automatically maps Discord guild/category/channel hierarchy to OpenClaw workspace folders and injects the resolved working directory into Discord agent turns.",
+  "activation": {
+    "onStartup": true
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "agentId": { "type": "string" },
+      "workspaceDir": { "type": "string" },
+      "mapPath": { "type": "string", "default": "_system/discord-channel-map.yaml" },
+      "tokenEnv": { "type": "string" },
+      "tokenEnvByAgent": {
+        "type": "object",
+        "additionalProperties": { "type": "string" }
+      },
+      "tokenEnvByAccount": {
+        "type": "object",
+        "additionalProperties": { "type": "string" }
+      },
+      "autoRegister": { "type": "boolean", "default": true },
+      "updateNames": { "type": "boolean", "default": true },
+      "createReadme": { "type": "boolean", "default": true },
+      "injectContext": { "type": "boolean", "default": true },
+      "allowUncategorized": { "type": "boolean", "default": false }
+    }
+  }
+}

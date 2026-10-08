@@ -1,0 +1,22 @@
+{
+  "plugins": {
+    "entries": {
+      "discord-workspace-router": {
+        "enabled": true,
+        "hooks": {
+          "allowConversationAccess": true
+        },
+        "config": {
+          "agentId": "main",
+          "workspaceDir": "/path/to/your/.openclaw/workspace",
+          "tokenEnv": "DISCORD_BOT_TOKEN",
+          "autoRegister": true,
+          "updateNames": true,
+          "createReadme": true,
+          "injectContext": true,
+          "allowUncategorized": false
+        }
+      }
+    }
+  }
+}

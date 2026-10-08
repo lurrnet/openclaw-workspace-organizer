@@ -1,0 +1,3 @@
+interface:
+  display_name: "Workspace Router"
+  short_description: "Route Discord work into the correct OpenClaw workspace folder"

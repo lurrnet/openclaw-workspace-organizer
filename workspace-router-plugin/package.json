@@ -1,0 +1,23 @@
+{
+  "name": "discord-workspace-router",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "yaml": "^2.8.1"
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.8.0"
+  },
+  "openclaw": {
+    "extensions": ["./index.js"],
+    "compat": {
+      "pluginApi": ">=2026.8.0",
+      "minGatewayVersion": "2026.8.0"
+    },
+    "build": {
+      "openclawVersion": "2026.8.35",
+      "pluginSdkVersion": "2026.8.35"
+    }
+  }
+}
